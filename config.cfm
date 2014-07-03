@@ -59,6 +59,9 @@ This file is part of the HWS Weeding Manager.
 <cfif not(isdefined("application.barcodelength"))>
     <cfset application.barcodelength = "14">
 </cfif>
+<cfif not(isdefined("application.xxxdb"))>
+    <cfset application.xxxdb = 'hobartdb'>
+</cfif>
 
  <cffunction name="isLoggedIn">
     <!--- DEBUG: bypass login --->

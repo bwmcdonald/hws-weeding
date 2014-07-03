@@ -35,8 +35,8 @@ This file is part of the HWS Weeding Manager.
 				SELECT DISTINCT
 					<cfif isdefined("arguments.marc_fields")>
                         <cfloop list="#arguments.marc_fields#" index="field">
-                        	<cfif isnumeric(field) and len(field) eq 3>
-                            	HOBARTDB.GETBIBTAG(bd.BIB_ID, '#field#') "field_#field#",
+                        	<cfif isnumeric(field) and len(field) eq 3 and isdefined("application.xxxdb")>
+                            	#application.xxxdb#.GETBIBTAG(bd.BIB_ID, '#field#') "field_#field#",
                                 <cfset need_bib_data = 'yes'>
                             </cfif>
                         </cfloop>
@@ -110,8 +110,8 @@ This file is part of the HWS Weeding Manager.
 				SELECT DISTINCT
 					<cfif isdefined("arguments.marc_fields")>
                         <cfloop list="#arguments.marc_fields#" index="field">
-                        	<cfif isnumeric(field) and len(field) eq 3>
-                            	HOBARTDB.GETBIBTAG(bd.BIB_ID, '#field#') "field_#field#",
+                        	<cfif isnumeric(field) and len(field) eq 3 and isdefined("application.xxxdb")>
+                            	#application.xxxdb#.GETBIBTAG(bd.BIB_ID, '#field#') "field_#field#",
                                 <cfset need_bib_data = 'yes'>
                             </cfif>
                         </cfloop>
