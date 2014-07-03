@@ -70,7 +70,7 @@ This file is part of the HWS Weeding Manager.
         <cfset barcodes_rejected = QueryNew("item_barcode")/>
         <cfset barcodes_error = QueryNew("item_barcode")/>
         <cfloop file="#form.barcodefile#" index="current_barcode">
-            <cfif len(current_barcode) eq 14 AND IsNumeric(current_barcode)>
+            <cfif len(current_barcode) eq application.barcodelength AND IsNumeric(current_barcode)>
                 <cfinvoke
                     component="cfc.weeding"
                     method="add_item"
