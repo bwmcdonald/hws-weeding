@@ -324,7 +324,7 @@ This file is part of the HWS Weeding Manager.
                 returnvariable="voyager_item"
             />
             
-            <cfif not(isdefined("voyager_item.recordcount"))> 
+            <cfif not(isdefined("voyager_item.recordcount") and voyager_item.recordcount gt 0)> 
 			<!--- recordcount will be gt 1 for bound-withs. just take the first one --->
             	<cfthrow message="Unable to retrieve bib record">
             </cfif>
