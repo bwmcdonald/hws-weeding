@@ -94,8 +94,10 @@ This file is part of the HWS Weeding Manager.
                             <cfset session.weeding.page_size = 25>
                         </cfif>
                         <cfif isdefined("url.page_size")>
-                            <cfset session.weeding.page_size = url.page_size>
-                            <cfset session.weeding.offset = 0>
+                            <cfif session.weeding.page_size neq url.page_size>
+                                <cfset session.weeding.page_size = url.page_size>
+                                <cfset session.weeding.offset = 0>
+                            </cfif>
                         </cfif>
                         <cfif not(isdefined("session.weeding.sort"))>
                             <cfset session.weeding.sort = ''>
