@@ -48,16 +48,10 @@ This file is part of the HWS Weeding Manager.
         <cfif not(isdefined("session.weeding"))>
             <cfset session.weeding = {}>
         </cfif>
-        <cfif not(isdefined("session.weeding.offset"))>
-            <cfset session.weeding.offset = 0>
-        </cfif>
-        <cfif isdefined("url.offset")>
-            <cfset session.weeding.offset = url.offset>
-        </cfif>
         <cfif not(isdefined("session.weeding.page_size"))>
             <cfset session.weeding.page_size = 25>
         </cfif>
-        <cfif isdefined("url.page_size")>
+        <cfif isdefined("url.page_size") and url.page_size neq session.weeding.page_size>
             <cfset session.weeding.page_size = url.page_size>
             <cfset session.weeding.offset = 0>
         </cfif>
@@ -71,14 +65,14 @@ This file is part of the HWS Weeding Manager.
         <cfif not(isdefined("session.weeding.userid"))>
             <cfset session.weeding.userid = 0>
         </cfif>
-        <cfif isdefined("url.userid")>
+        <cfif isdefined("url.userid") and url.userid neq session.weeding.userid>
             <cfset session.weeding.userid = url.userid>
             <cfset session.weeding.offset = 0>
         </cfif>
         <cfif not(isdefined("session.weeding.deptid"))>
             <cfset session.weeding.deptid = 0>
         </cfif>
-        <cfif isdefined("url.deptid")>
+        <cfif isdefined("url.deptid") and url.deptid neq session.weeding.deptid>
             <cfset session.weeding.deptid = url.deptid>
             <cfset session.weeding.userid = 0>
             <cfset session.weeding.offset = 0>
@@ -86,7 +80,7 @@ This file is part of the HWS Weeding Manager.
         <cfif not(isdefined("session.weeding.hascomments"))>
             <cfset session.weeding.hascomments = ''>
         </cfif>
-        <cfif isdefined("url.hascomments")>
+        <cfif isdefined("url.hascomments") and url.hascomments neq session.weeding.hascomments>
             <cfset session.weeding.hascomments = url.hascomments>
             <cfset session.weeding.acknowledged = ''>
             <cfset session.weeding.offset = 0>
@@ -94,28 +88,28 @@ This file is part of the HWS Weeding Manager.
         <cfif not(isdefined("session.weeding.acknowledged"))>
             <cfset session.weeding.acknowledged = ''>
         </cfif>
-        <cfif isdefined("url.acknowledged")>
+        <cfif isdefined("url.acknowledged") and url.acknowledged neq session.weeding.acknowledged>
             <cfset session.weeding.acknowledged = url.acknowledged>
             <cfset session.weeding.offset = 0>
         </cfif>
         <cfif not(isdefined("session.weeding.expired"))>
             <cfset session.weeding.expired = ''>
         </cfif>
-        <cfif isdefined("url.expired")>
+        <cfif isdefined("url.expired") and url.expired neq session.weeding.expired>
             <cfset session.weeding.expired = url.expired>
             <cfset session.weeding.offset = 0>
         </cfif>
         <cfif not(isdefined("session.weeding.active"))>
             <cfset session.weeding.active = ''>
         </cfif>
-        <cfif isdefined("url.active")>
+        <cfif isdefined("url.active") and url.active neq session.weeding.active>
             <cfset session.weeding.active = url.active>
             <cfset session.weeding.offset = 0>
         </cfif>
         <cfif not(isdefined("session.weeding.needsreview"))>
             <cfset session.weeding.needsreview = ''>
         </cfif>
-        <cfif isdefined("url.needsreview")>
+        <cfif isdefined("url.needsreview") and url.needsreview neq session.weeding.needsreview>
             <cfset session.weeding.needsreview = url.needsreview>
             <cfset session.weeding.offset = 0>
         </cfif>
@@ -128,7 +122,7 @@ This file is part of the HWS Weeding Manager.
         <cfif not(isdefined("session.weeding.printed"))>
             <cfset session.weeding.printed = ''>
         </cfif>
-        <cfif isdefined("url.printed")>
+        <cfif isdefined("url.printed") and url.printed neq session.weeding.printed>
             <cfset session.weeding.printed = url.printed>
             <cfset session.weeding.offset = 0>
         </cfif>
@@ -136,7 +130,7 @@ This file is part of the HWS Weeding Manager.
 			<cfset session.weeding.specialcollections = ''>
             <cfset session.weeding.specialcollectionsdecision = ''>
         </cfif>
-        <cfif isdefined("url.specialcollections")>
+        <cfif isdefined("url.specialcollections") and url.specialcollections neq session.weeding.specialcollections>
             <cfset session.weeding.specialcollections = url.specialcollections>
         	<cfset session.weeding.specialcollectionsdecision = ''>
             <cfset session.weeding.offset = 0>
@@ -147,21 +141,27 @@ This file is part of the HWS Weeding Manager.
         <cfif not(isdefined("session.weeding.title_kw"))>
             <cfset session.weeding.title_kw = ''>
         </cfif>
-        <cfif isdefined("url.title_kw")>
+        <cfif isdefined("url.title_kw") and url.title_kw neq session.weeding.title_kw>
             <cfset session.weeding.title_kw = url.title_kw>
             <cfset session.weeding.offset = 0>
         </cfif>
-        <cfif not(isdefined("session.weeding.mode"))>
-        	<cfset session.weeding.mode = ''>
+        <cfif not(isdefined("session.weeding.view"))>
+        	<cfset session.weeding.view = ''>
         </cfif>
-        <cfif isdefined("url.mode")>
-        	<cfset session.weeding.mode = url.mode>
-            <cfif url.mode eq 'cataloging' and not(isdefined("url.sort"))>
+        <cfif isdefined("url.view")>
+        	<cfset session.weeding.view = url.view>
+            <cfif url.view eq 'cataloging' and not(isdefined("url.sort"))>
             	<cfset session.weeding.sort = 'call_no'>
             </cfif>
-            <cfif url.mode eq 'cataloging' and not(isdefined("url.page_size"))>
+            <cfif url.view eq 'cataloging' and not(isdefined("url.page_size"))>
             	<cfset session.weeding.page_size = 50>
             </cfif>
+        </cfif>
+        <cfif not(isdefined("session.weeding.offset"))>
+            <cfset session.weeding.offset = 0>
+        </cfif>
+        <cfif isdefined("url.offset")>
+            <cfset session.weeding.offset = url.offset>
         </cfif>
 
 		<!--- start of limits section --->
